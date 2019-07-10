@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="zzu.mxd.subway.mapper.SitAccelerometerMapper">
+
+    <resultMap id="base" type="zzu.mxd.subway.entity.SitAccelerometer">
+        <id column="id" property="id" />
+        <result column="x" property="x" />
+        <result column="y" property="y" />
+        <result column="z" property="z" />
+        <result column="uid" property="uid" />
+        <result column="datetime" property="datetime" />
+    </resultMap>
+
+    <select id="selectOneDescByUid" parameterType="java.lang.Integer" resultType="zzu.mxd.subway.entity.SitAccelerometer">
+        select * from subway_sitAccelerometer
+        where uid = #{uid}
+        order by id desc
+        limit 1
+    </select>
+
+
+    <select id="select32DescByUid" parameterType="java.lang.Integer" resultMap="base">
+        select * from subway_sitAccelerometer
+        where uid = #{uid}
+        order by id desc
+        limit 32
+    </select>
+
+    <select id="selectOneOrderByUid" parameterType="java.lang.Integer" resultType="zzu.mxd.subway.entity.SitAccelerometer">
+        select * from subway_sitAccelerometer
+        where uid = #{uid}
+        limit 1
+    </select>
+
+    <select id="selectAll" resultMap="base">
+        select * from subway_sitAccelerometer
+    </select>
+</mapper>

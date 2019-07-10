@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="zzu.mxd.subway.mapper.SiteComfortMapper">
+
+    <resultMap id="base" type="zzu.mxd.subway.entity.SiteComfort">
+        <id column="id" property="id" />
+        <result column="value" property="value" /><!--column指表中字段名，property指类中属性名-->
+        <result column="dic_id" property="dicId" />
+        <result column="datetime" property="datetime" />
+        <result column="n" property="n" />
+        <result column="uid" property="uid" />
+    </resultMap>
+
+    <!--查询两站点间的所有舒适度值-->
+    <select id="selectListByNameAndDateTime" resultMap="base" parameterType="zzu.mxd.subway.entity.SiteComfort">
+      select *
+      from subway_siteComfort
+      where datetime > #{datetime} and  dic_id = #{dicId}
+      order by id desc
+    </select>
+</mapper>

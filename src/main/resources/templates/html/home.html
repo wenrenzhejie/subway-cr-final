@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>ECharts</title>
+    <!-- 引入 echarts.js -->
+    <script src="https://cdn.bootcss.com/jquery/3.4.0/jquery.js"></script>
+    <script src="http://localhost:8084/js/echarts.min.js"></script>
+    <script src="http://localhost:8084/js/echarts-gl.js"></script>
+</head>
+<body>
+    <h1>HAHA</h1>
+    <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+    <div id="main" style="width: 600px;height:400px;"></div>
+    <script type="text/javascript">
+        // 基于准备好的dom，初始化echarts实例
+        var myChart = echarts.init(document.getElementById('main'));
+
+        /*$.ajax({
+            type: "get",
+            url: "http://localhost:8084/data/life-expectancy-table.json",
+            dataType: "json",//数据格式
+            success: function (data) {
+                console.log(data)
+            },
+            error: function (jqObj) {
+                console.log(jqObj.status)
+            }
+        });*/
+        //http://localhost:8084/data/life-expectancy-table.json
+        //http://localhost:8084/selectAll
+        $.get('http://localhost:8084/data/a.json', function (data) {
+            option = {
+                grid3D: {},
+                tooltip: {},
+                xAxis3D: {
+                    type: 'category'
+                },
+                yAxis3D: {
+                    type: 'category'
+                },
+                zAxis3D: {},
+                visualMap: {
+                    max: 1e8,
+                    dimension: 'Population'
+                },
+                dataset: {
+                    dimensions: [
+                        '湿度',
+                        '光线',
+                        '噪声强度',
+                        '气压',
+                        '加速度',
+                        '温度',
+                        {name: 'Year', type: 'ordinal'}
+                    ],
+                    source: data
+                },
+                series: [
+                    {
+                        type: 'bar3D',
+                        // symbolSize: symbolSize,
+                        shading: 'lambert',
+                        encode: {
+                            x: '时间',
+                            y: '值',
+                            z: '类型',
+                            tooltip: [0, 1, 2, 3, 4]
+                        }
+                    }
+                ]
+            };
+            myChart.setOption(option);// 使用刚指定的配置项和数据显示图表。
+        });
+
+    </script>
+</body>
+</html>
